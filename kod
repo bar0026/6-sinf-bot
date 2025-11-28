@@ -1,0 +1,20 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot("8152274542:AAEJoEr6Snxwu6jtM1skSC9W-YQJEtKadJI")
+
+CHANNEL_ID = "@bsb_chb_javoblari1"   # yoki -1001234567890
+
+# Kanalga xabar yuborish
+def send_post():
+    markup = types.InlineKeyboardMarkup()
+
+    btn1 = types.InlineKeyboardButton("Obuna bo‘lish", url="https://t.me/bsb_chsb_larbot")
+    btn2 = types.InlineKeyboardButton("Admin bilan aloqa", url="https://t.me/bsb_chsb_larbot")
+
+    markup.add(btn1)
+    markup.add(btn2)
+
+    bot.send_message(CHANNEL_ID, "Bu kanal uchun test post 😊", reply_markup=markup)
+
+send_post()
