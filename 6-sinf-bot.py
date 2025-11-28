@@ -9,7 +9,7 @@ bot = telebot.TeleBot(TOKEN, threaded=False)
 app = Flask(__name__)
 
 # Render domening: https://kod.onrender.com
-WEBHOOK_URL = os.getenv(https://six-sinf-bot.onrender.com)
+WEBHOOK_URL = os.getenv("https://six-sinf-bot.onrender.com")
 
 CHANNEL_ID = "@bsb_chb_javoblari1"   # yoki -100...
 
