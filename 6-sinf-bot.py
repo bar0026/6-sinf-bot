@@ -4,8 +4,8 @@ from flask import Flask, request
 import os
 
 # --- TOKEN va Webhook URL ni Environment Variable orqali oling ---
-TOKEN = os.getenv("BOT_TOKEN")  # Render’da BOT_TOKEN qo‘shing
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # Render’da WEBHOOK_URL qo‘shing
+TOKEN = os.getenv("8152274542:AAEJoEr6Snxwu6jtM1skSC9W-YQJEtKadJI")  # Render’da BOT_TOKEN qo‘shing
+WEBHOOK_URL = os.getenv("https://six-sinf-bot.onrender.com")  # Render’da WEBHOOK_URL qo‘shing
 
 bot = telebot.TeleBot(TOKEN, threaded=False)
 app = Flask(__name__)
