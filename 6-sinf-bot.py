@@ -3,15 +3,14 @@ from telebot import types
 from flask import Flask, request
 import os
 
-TOKEN = os.getenv("8152274542:AAEJoEr6Snxwu6jtM1skSC9W-YQJEtKadJI")
-bot = telebot.TeleBot(TOKEN, threaded=False)
+# --- TOKEN va Webhook URL ni Environment Variable orqali oling ---
+TOKEN = os.getenv("BOT_TOKEN")  # Render’da BOT_TOKEN qo‘shing
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # Render’da WEBHOOK_URL qo‘shing
 
+bot = telebot.TeleBot(TOKEN, threaded=False)
 app = Flask(__name__)
 
-# Render domening: https://kod.onrender.com
-WEBHOOK_URL = os.getenv("https://six-sinf-bot.onrender.com")
-
-CHANNEL_ID = "@bsb_chb_javoblari1"   # yoki -100...
+CHANNEL_ID = "@bsb_chb_javoblari1"  # yoki -1001234567890
 
 # --- Inline tugmali kanal post funksiyasi ---
 def send_post():
@@ -36,19 +35,16 @@ def webhook():
     bot.process_new_updates([update])
     return "OK", 200
 
-
-# /start komandasi
+# --- /start komandasi: ishlayotganini tekshirish uchun ---
 @bot.message_handler(commands=['start'])
 def start(msg):
-    bot.reply_to(msg, "Webhook ishlayapti 😊\n\n/sendpost - kanalga xabar tashlash")
+    bot.reply_to(msg, "Salom! Bot ishlayapti 😊\n\n/sendpost - kanalga xabar tashlash")
 
-
-# Admin tomonidan kanalga tugmali post tashlash
+# --- /sendpost komandasi: admin kanalga tugmali post yuboradi ---
 @bot.message_handler(commands=['sendpost'])
 def admin_send(msg):
     send_post()
     bot.reply_to(msg, "Kanalga yuborildi!")
-
 
 # --- Webhook o‘rnatish ---
 @app.route("/setwebhook", methods=['GET'])
@@ -57,6 +53,6 @@ def set_webhook():
     bot.set_webhook(url=WEBHOOK_URL)
     return "Webhook o‘rnatildi!", 200
 
-
+# --- Flask serverni ishga tushirish ---
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
