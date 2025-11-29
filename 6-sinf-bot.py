@@ -27,12 +27,19 @@ def start(message):
 
 # Kanalga ishga tushganda xabar yuborish
 def post_to_channel():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    btn1 = types.InlineKeyboardButton("Websaytga o'tish", url="https://t.me/some_link")
-    btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://youtube.com/")
-    markup.add(btn1, btn2)
+    markup = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton("Chsb javoblari", url="https://t.me/bsb_chsb_larbot")
+    btn2 = types.InlineKeyboardButton("Bsb javoblari", url="https://t.me/bsb_chsb_larbot")
+    btn3 = types.InlineKeyboardButton("Botga o'tish", url="https://t.me/bsb_chsb_larbot")
+    markup.add(btn1)
+    markup.add(btn2)
+    markup.add(btn3)
     
-    bot.send_message(CHANNEL_ID, "Bot ishga tushdi! Bu xabar avtomatik kanalga yuborildi.", reply_markup=markup)
+    bot.send_message(CHANNEL_ID, "✅ Barcha Fanlardan BSB va CHSB javoblari yetib kelmoqda endi yana qulay BOTdan javoblarini topishingiz mumkin ✅👇
+
+Botdan Toʻliq foydalanish uchun kanallarga obuna boʻlish kerak 🛑
+
+⏬⏬⏬⏬⏬⏬⏬⏬⏬⏬", reply_markup=markup)
 
 # Webhook endpoint
 @app.route(f"/{TOKEN}", methods=['POST'])
