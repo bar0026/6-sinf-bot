@@ -35,11 +35,15 @@ def post_to_channel():
     markup.add(btn2)
     markup.add(btn3)
     
-    bot.send_message(CHANNEL_ID, "✅ Barcha Fanlardan BSB va CHSB javoblari yetib kelmoqda endi yana qulay BOTdan javoblarini topishingiz mumkin ✅👇
+    bot.send_message(CHANNEL_ID, 
+    """✅ Barcha Fanlardan BSB va CHSB
+    javoblari yetib kelmoqda endi yana 
+    qulay BOTdan javoblarini topishingiz 
+    mumkin ✅👇
 
-Botdan Toʻliq foydalanish uchun kanallarga obuna boʻlish kerak 🛑
-
-⏬⏬⏬⏬⏬⏬⏬⏬⏬⏬", reply_markup=markup)
+    Botdan Toʻliq foydalanish uchun 
+    kanallarga obuna boʻlish kerak 🛑
+    ⏬⏬⏬⏬⏬⏬⏬⏬⏬⏬""", reply_markup=markup)
 
 # Webhook endpoint
 @app.route(f"/{TOKEN}", methods=['POST'])
