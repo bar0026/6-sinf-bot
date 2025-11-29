@@ -20,21 +20,19 @@ def start(message):
     
     markup = types.InlineKeyboardMarkup(row_width=2)
     btn1 = types.InlineKeyboardButton("Websaytga o'tish", url="https://t.me/bsb_chsb_larbot")
-    btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://t.me/bsb_chsb_larbot")
+    btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://youtube.com/")
     markup.add(btn1, btn2)
     
     bot.send_message(chat_id, "Salom! Bu xabar inline tugmalar bilan:", reply_markup=markup)
 
-# Kanalga xabar yuborish (foydalanuvchi /post yozsa)
-@bot.message_handler(commands=['post'])
-def post_to_channel(message):
+# Kanalga ishga tushganda xabar yuborish
+def post_to_channel():
     markup = types.InlineKeyboardMarkup(row_width=2)
     btn1 = types.InlineKeyboardButton("Websaytga o'tish", url="https://t.me/some_link")
     btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://youtube.com/")
     markup.add(btn1, btn2)
     
-    bot.send_message(CHANNEL_ID, "Salom kanal! Bu xabar inline URL tugmalar bilan yuborildi.", reply_markup=markup)
-    bot.reply_to(message, "Xabar kanalingga yuborildi ✅")
+    bot.send_message(CHANNEL_ID, "Bot ishga tushdi! Bu xabar avtomatik kanalga yuborildi.", reply_markup=markup)
 
 # Webhook endpoint
 @app.route(f"/{TOKEN}", methods=['POST'])
@@ -49,6 +47,9 @@ if __name__ == "__main__":
     # Avval webhookni o‘rnatish
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
+    
+    # Bot ishga tushganda kanalga xabar yuborish
+    post_to_channel()
     
     # Flask server ishga tushishi
     app.run(host="0.0.0.0", port=5000)
