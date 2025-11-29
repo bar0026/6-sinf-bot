@@ -6,35 +6,35 @@ from telebot import types
 # BOT TOKEN va WEBHOOK URL
 # -----------------------------
 TOKEN = "8152274542:AAEJoEr6Snxwu6jtM1skSC9W-YQJEtKadJI"  # Bot tokeningizni shu yerga qo'ying
-WEBHOOK_URL = "https://six-sinf-bot.onrender.com/" + TOKEN  # Sizning Render URL + token
+WEBHOOK_URL = "https://six-sinf-bot.onrender.com/" + TOKEN  # Render URL + token
+CHANNEL_ID = "@matematika_test_m"  # Kanal username yoki private kanal bo'lsa -100XXXXXXXXX
 # -----------------------------
 
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
-# /start komandasi
+# /start komandasi (foydalanuvchiga tugmalarni ko'rsatish)
 @bot.message_handler(commands=['start'])
 def start(message):
     chat_id = message.chat.id
     
-    # Inline tugmalar yaratish
     markup = types.InlineKeyboardMarkup(row_width=2)
-    btn1 = types.InlineKeyboardButton("Tugma 1", callback_data="btn1")
-    btn2 = types.InlineKeyboardButton("Tugma 2", callback_data="btn2")
-    btn3 = types.InlineKeyboardButton("Tugma 3", callback_data="btn3")
-    markup.add(btn1, btn2, btn3)
+    btn1 = types.InlineKeyboardButton("Websaytga o'tish", url="https://t.me/bsb_chsb_larbot")
+    btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://t.me/bsb_chsb_larbot")
+    markup.add(btn1, btn2)
     
-    bot.send_message(chat_id, "Salom! Tugmalardan birini tanlang:", reply_markup=markup)
+    bot.send_message(chat_id, "Salom! Bu xabar inline tugmalar bilan:", reply_markup=markup)
 
-# Inline tugmalarni boshqarish
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    if call.data == "btn1":
-        bot.answer_callback_query(call.id, "Siz Tugma 1 ni bosdingiz!")
-    elif call.data == "btn2":
-        bot.answer_callback_query(call.id, "Siz Tugma 2 ni bosdingiz!")
-    elif call.data == "btn3":
-        bot.answer_callback_query(call.id, "Siz Tugma 3 ni bosdingiz!")
+# Kanalga xabar yuborish (foydalanuvchi /post yozsa)
+@bot.message_handler(commands=['post'])
+def post_to_channel(message):
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    btn1 = types.InlineKeyboardButton("Websaytga o'tish", url="https://t.me/some_link")
+    btn2 = types.InlineKeyboardButton("YouTube kanal", url="https://youtube.com/")
+    markup.add(btn1, btn2)
+    
+    bot.send_message(CHANNEL_ID, "Salom kanal! Bu xabar inline URL tugmalar bilan yuborildi.", reply_markup=markup)
+    bot.reply_to(message, "Xabar kanalingga yuborildi ✅")
 
 # Webhook endpoint
 @app.route(f"/{TOKEN}", methods=['POST'])
@@ -44,7 +44,7 @@ def webhook():
     bot.process_new_updates([update])
     return "OK", 200
 
-# Flask server start
+# Flask server ishga tushishi
 if __name__ == "__main__":
     # Avval webhookni o‘rnatish
     bot.remove_webhook()
