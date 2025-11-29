@@ -7,7 +7,7 @@ from telebot import types
 # -----------------------------
 TOKEN = "8152274542:AAEJoEr6Snxwu6jtM1skSC9W-YQJEtKadJI"  # Bot tokeningizni shu yerga qo'ying
 WEBHOOK_URL = "https://six-sinf-bot.onrender.com/" + TOKEN  # Render URL + token
-CHANNEL_ID = "@matematika_test_m"  # Kanal username yoki private kanal bo'lsa -100XXXXXXXXX
+CHANNEL_ID = "@bsb_chsb_javoblari1"  # Kanal username yoki private kanal bo'lsa -100XXXXXXXXX
 # -----------------------------
 
 bot = telebot.TeleBot(TOKEN)
